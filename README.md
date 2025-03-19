@@ -4,12 +4,12 @@
 Dự án này là một trang E-Commerce đơn giản được xây dựng bằng Angular. Nó bao gồm các tính năng như hiển thị sản phẩm, giỏ hàng, bộ lọc sản phẩm và xác thực người dùng.
 
 ## 🚀 Công nghệ sử dụng
-- **Angular** (với TypeScript)
-- **RxJS** (quản lý trạng thái)
-- **Bootstrap/Tailwind CSS** (giao diện)
-- **Firebase/Vercel** (triển khai)
-- **Fake API / JSON Server** (dữ liệu sản phẩm)
-
+- **Angular**
+- **TypeScript**
+- **RxJS** 
+- **Bootstrap
+- **Firebase
+- **Fake API 
 ## 🛠 Cài đặt & Chạy project
 1. Clone repo:
    - git clone https://github.com/thach3112003/Angular_ecommerce_app
