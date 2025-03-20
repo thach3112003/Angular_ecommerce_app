@@ -1,0 +1,8 @@
+<div class="login-container">
+    <h2>Đăng nhập</h2>
+    <input type="email" [(ngModel)]="email" placeholder="Email" required />
+    <input type="password" [(ngModel)]="password" placeholder="Mật khẩu"
+        required />
+    <button (click)="login()">Đăng nhập</button>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+</div>
