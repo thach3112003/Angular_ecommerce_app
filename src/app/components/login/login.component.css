@@ -1,9 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
 .login-container {
-
     width: 70%;
-    margin: 200px auto !important;
+    margin: 150px auto !important;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     gap: 20px;
     align-items: center;

@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 html,
 body {
     height: 100%;
@@ -6,26 +8,61 @@ body {
     flex-direction: column;
 }
 
-.container {
-    flex: 1;
-    /* Đẩy footer xuống */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 footer {
-    background: #9bb7d3;
-    color: white;
+    margin-top: 50px;
+    padding: 20px 0;
+    background-color: #dddddd !important;
     text-align: center;
-    padding: 10px 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    position: fixed;
+    color: #797979;
 }
 
-.login-card {
-    width: 80% !important;
+footer a {
+    text-decoration: none;
+    color: #333;
+}
 
+footer a:hover {
+    color: #007bff;
+}
+
+.content {
+    flex: 1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.nav-top {}
+
+.navbar-nav {
+    margin: auto;
+}
+
+.nav-item {
+    padding: 0 10px;
+}
+
+.nav-link {
+    font-size: 18px;
+    font-weight: 400;
+    color: black;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 992px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .nav-item {
+        padding: 10px 0;
+    }
 }
