@@ -8,20 +8,40 @@
   <nav>
     <div class="nav-top d-flex justify-content-between">
       <div class="nav-top-group-left pt-4 ps-3">
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i class="fa fa-search" id="openSearch" (click)="toggleSearch()"
+          aria-hidden="true"></i>
+
+        <!-- Ô tìm kiếm -->
+        <div class="search-box" *ngIf="isSearchOpen">
+          <input type="text" placeholder="Tìm kiếm sản phẩm..."
+            [(ngModel)]="searchQuery">
+          <button (click)="search()">Tìm kiếm</button>
+        </div>
         <a href="#" class="text-decoration-none ms-5"><i
             class="fa fa-volume-control-phone me-2"
             aria-hidden="true"></i>Contact
           Us</a>
       </div>
-      <div class="nav-top-logo"><img src="assets/image/Logo.png"
-          alt="logo" width="160"></div>
+      <div class="nav-top-logo"><a href><img src="assets/image/Logo.png"
+            alt="logo" width="160"></a></div>
       <div class="nav-top-group-right pt-4 pe-3">
-        <i class="fa fa-user me-5" aria-hidden="true"></i>
+        <i class="fa fa-user me-5" aria-hidden="true"
+          (click)="handleUserClick()"></i>
+        <p>Hi, {{userName}}</p>
+        <div class="user-menu" *ngIf="isUserMenuOpen">
+          <ul>
+            <li><a href="#">Thông tin cá nhân</a></li>
+            <li><a href="#">Đơn hàng</a></li>
+            <li><a href="#">Cài đặt</a></li>
+            <li><a href="#" (click)="handleLogOut()">Đăng xuất</a></li>
+          </ul>
+        </div>
         <i class="far fa-heart me-5" aria-hidden="true"></i>
-        <i class="fa fa-shopping-cart me-1" aria-hidden="true"></i>
+        <i class="fa fa-shopping-cart me-1" (click)="handleCartClick()"
+          aria-hidden="true"></i>
       </div>
     </div>
+
     <!-- Nav link -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <div class="container">

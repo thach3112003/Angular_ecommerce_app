@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   imports: [FormsModule, CommonModule,
-     MatInputModule,
+    MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule
@@ -26,26 +28,24 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
-constructor(private router: Router) {}
-  async login() {
-    if (!this.email || !this.password) {
-      this.errorMessage = 'Vui lòng nhập đầy đủ thông tin!';
-      return;
-    }
+  userName: any;
 
+  constructor(private authService: AuthService, private router: Router) { }
+loginWithGoogle() {
+  this.authService.login('google');
+}
+  async login(type: 'backend' | 'google', event : Event) {
+  
+  event.preventDefault();
     try {
-      const response = await axios.post('https://reqres.in/api/login', {
-        email: this.email,
-        password: this.password
-      });
+      const user = await this.authService.login(type, this.email, this.password);
 
-      localStorage.setItem('access_token', response.data.token);
-      console.log('Đăng nhập thành công:', response.data);
-      alert('Đăng nhập thành công!');
-       this.router.navigate(['/']);
+      this.userName = this.authService.getCurrentUser()?.userName || 'Người dùng';
+
+      Swal.fire({ position: 'top-end', icon: 'success', title: 'Đăng nhập thành công!', showConfirmButton: false, timer: 1500 });
+      this.router.navigate(['/']);
     } catch (error) {
       this.errorMessage = 'Đăng nhập thất bại! Vui lòng thử lại.';
-      console.error('Lỗi đăng nhập:', error);
-    }
+    }  
   }
 }
