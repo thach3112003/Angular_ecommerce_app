@@ -29,6 +29,13 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
   userName: any;
+  resetEmail: string = '';
+   
+  showForgotPassword: boolean = false;
+
+   toggleForgotPassword() {
+    this.showForgotPassword = !this.showForgotPassword;
+  }
 
   constructor(private authService: AuthService, private router: Router) { }
   
@@ -48,6 +55,15 @@ export class LoginComponent {
       this.errorMessage = 'Đăng nhập thất bại! Vui lòng thử lại.';
     }  
   }
- 
-    
+  // Forgot password
+  async onResetPassword() {
+    try {
+      const message = await this.authService.resetPassword(this.resetEmail);
+      Swal.fire('Thành công!', message+". Vui lòng kiểm tra email!", 'success');
+      this.showForgotPassword = false;
+    } catch (error) {
+      Swal.fire('Lỗi!', 'Không thể gửi email đặt lại mật khẩu.', 'error');
+    }
+  }
+  
 }

@@ -50,7 +50,8 @@ export class RegisterComponent {
         .catch(error => {
           this.errorMessage = error.message;
         });
-    }
+  }
+  
 
     // registerWithGoogle() {
       // this.authService.loginWithGoogle()

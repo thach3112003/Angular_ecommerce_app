@@ -20,13 +20,29 @@
                 class="full-width">Sign In</button>
 
             <div class="d-flex mb-2">
-                <a class="text-decoration-none" href="/forgotPassword">Forgot
-                    Password?
-                </a>
+                <p (click)="toggleForgotPassword()"
+                    style="cursor: pointer; color: blue;">
+                    Quên mật khẩu?
+                </p>
             </div>
+
             <p class="error-message" *ngIf="errorMessage">{{ errorMessage
                 }}</p>
         </form>
+        <div *ngIf="showForgotPassword">
+            <h2>Quên Mật Khẩu</h2>
+            <p>Nhập email của bạn để đặt lại mật khẩu.</p>
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="resetEmail" type="email" required>
+            </mat-form-field>
+
+            <div class="button-group">
+
+                <button mat-raised-button color="primary"
+                    (click)="onResetPassword()">Gửi</button>
+            </div>
+        </div>
         <button mat-raised-button color="warn" (click)="loginWithGoogle()">
             <img src="assets/image/logo-gg.png" alt="Google Logo"
                 width="20">

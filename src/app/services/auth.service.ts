@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
+import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -88,5 +88,15 @@ export class AuthService {
     
     getCurrentUser() {
     return this.user || JSON.parse(localStorage.getItem('user') || 'null');
+  }
+  
+  async resetPassword(email: string) {
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+      return 'Đã gửi email đặt lại mật khẩu!';
+    } catch (error) {
+      console.error('Lỗi đặt lại mật khẩu:', error);
+      throw error;
+    }
   }
 }
