@@ -43,11 +43,7 @@ export class NavbarComponent {
   }
 
   handleLogOut() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('user');
-    Swal.fire({ icon: 'info', title: 'Successful!', timer: 1500 });
-    this.isUserMenuOpen = false;
-    this.router.navigate(['/home']);
+    this.authService.logout();
   }
 
   toggleSearch() {

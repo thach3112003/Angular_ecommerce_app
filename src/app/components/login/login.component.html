@@ -18,11 +18,7 @@
 
             <button mat-raised-button color="primary"
                 class="full-width">Sign In</button>
-            <button mat-raised-button color="warn" (click)="loginWithGoogle()">
-                <img src="assets/image/logo-gg.png" alt="Google Logo"
-                    width="20">
-                Login with google!
-            </button>
+
             <div class="d-flex mb-2">
                 <a class="text-decoration-none" href="/forgotPassword">Forgot
                     Password?
@@ -31,13 +27,18 @@
             <p class="error-message" *ngIf="errorMessage">{{ errorMessage
                 }}</p>
         </form>
+        <button mat-raised-button color="warn" (click)="loginWithGoogle()">
+            <img src="assets/image/logo-gg.png" alt="Google Logo"
+                width="20">
+            Login with google!
+        </button>
     </mat-card>
     <div class="create_an_account  justify-content-between">
         <h2>Create an Account</h2>
         <p class="mt-5">Save time during checkout, view your shopping bag and
             saved items
             from any device and access your order history</p>
-        <button mat-raised-button color="primary"
-            class="full-width">Sign Up</button>
+        <a href="/register"><button mat-raised-button color="primary"
+                class="full-width">Sign Up</button></a>
     </div>
 </div>

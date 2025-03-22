@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User } from '@angular/fire/auth';
+import { Auth, signInWithPopup, GoogleAuthProvider, signOut, User, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -17,26 +17,36 @@ export class AuthService {
           if (type === 'google') {
               const provider = new GoogleAuthProvider();
               const result = await signInWithPopup(this.auth, provider);
-              this.user = result.user;
-              localStorage.setItem('user', JSON.stringify(this.user));
+            this.user = result.user;
+            localStorage.setItem('user', JSON.stringify(this.user));
+             const token = await result.user.getIdToken();
+            localStorage.setItem('access_token', token);
               console.log('Đăng nhập thành công:', this.user);
-              this.router.navigate(['/home']);
+            this.router.navigate(['']);
+            window.location.reload();
           } else {
-              if (!email || !password) throw new Error('Thiếu thông tin đăng nhập');
-              
-                const response = await axios.post('https://reqres.in/api/login', { email, password });
+              if (!email || !password) throw new Error('Thiếu email hoặc mật khẩu!');
+        
+          
+            const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+            
+            this.user = userCredential.user;
+            localStorage.setItem('user', JSON.stringify(this.user));
 
-                localStorage.setItem('access_token', response.data.token);
-
-              this.user = response.data.user;
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Successful!',
-                    showConfirmButton: false,
-                    timer: 1500
-      });
-       this.router.navigate(['/']);
+            const token = await this.user.getIdToken();
+            localStorage.setItem('access_token', token);
+            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Successful!',
+                                showConfirmButton: false,
+                                timer: 1500
+      }).then(() => {
+  this.router.navigate(['']);
+        window.location.reload(); 
+});
+            
+       
           }
            console.log(`Người dùng đăng nhập từ ${type}:`, this.user);
       return this.user;
@@ -47,6 +57,25 @@ export class AuthService {
       }
       
   }
+  //Register
+  async registerWithMail(fullName: string, email: string, password: string) {
+    email = email.trim(); 
+    
+    try {
+        const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const user = userCredential.user;
+      
+         await updateProfile(user, { displayName: fullName });
+        console.log("Đăng ký thành công:", fullName);
+        return user;
+    } catch(error: any) {
+    console.error("Lỗi đăng ký:", error.message);
+    Swal.fire("Lỗi!", error.message, "error");
+    throw error;
+
+    }
+}
+
 
   logout() {
     localStorage.removeItem('access_token');
@@ -54,7 +83,7 @@ export class AuthService {
     signOut(this.auth);
     this.user = null;
       console.log('Đã đăng xuất');
-      
+    window.location.reload();
     }
     
     getCurrentUser() {

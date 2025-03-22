@@ -20,7 +20,8 @@
         <div class="nav-top-group-right d-flex pt-4 pe-3">
             <i class="fa fa-user" aria-hidden="true"
                 (click)="handleUserClick()"></i>
-            <p class="me-3">Hi, {{userName}}</p>
+            <p class="me-3 ms-2" (click)="handleUserClick()">Hi,
+                {{userName}}</p>
             <div class="user-menu" *ngIf="isUserMenuOpen">
                 <ul>
                     <li><a href="#">Thông tin cá nhân</a></li>

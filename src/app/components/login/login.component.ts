@@ -31,9 +31,11 @@ export class LoginComponent {
   userName: any;
 
   constructor(private authService: AuthService, private router: Router) { }
-loginWithGoogle() {
+  
+  loginWithGoogle() {
   this.authService.login('google');
-}
+  }
+
   async login(type: 'backend' | 'google', event : Event) {
   
   event.preventDefault();
@@ -41,11 +43,11 @@ loginWithGoogle() {
       const user = await this.authService.login(type, this.email, this.password);
 
       this.userName = this.authService.getCurrentUser()?.userName || 'Người dùng';
-
-      Swal.fire({ position: 'top-end', icon: 'success', title: 'Đăng nhập thành công!', showConfirmButton: false, timer: 1500 });
-      this.router.navigate(['/']);
     } catch (error) {
+      Swal.fire({ position: 'center', icon: 'error', title: 'Incorrect email or password!', showConfirmButton: false, timer: 1500 });
       this.errorMessage = 'Đăng nhập thất bại! Vui lòng thử lại.';
     }  
   }
+ 
+    
 }
